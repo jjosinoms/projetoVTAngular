@@ -1,0 +1,134 @@
+<div class="container py-5">
+  <!-- Informações do Cliente -->
+  <mat-card class="mb-4">
+    <mat-card-header>
+      <mat-card-title>Informações do Cliente</mat-card-title>
+      <button mat-icon-button (click)="openEditClienteDialog()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>Nome:</strong> {{ cliente?.nome }}</p>
+          <p><strong>Razão Social:</strong> {{ cliente?.razao_social }}</p>
+          <p><strong>CNPJ:</strong> {{ cliente?.cnpj }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Telefone:</strong> {{ cliente?.telefone || 'Não informado' }}</p>
+          <p><strong>Telefone 2:</strong> {{ cliente?.telefone2 || 'Não informado' }}</p>
+          <p><strong>Email:</strong> {{ cliente?.email || 'Não informado' }}</p>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <p><strong>Endereço:</strong> 
+            {{ cliente?.endereco || '' }} 
+            {{ cliente?.bairro ? ', ' + cliente?.bairro : '' }} 
+            {{ cliente?.cidade ? ' - ' + cliente?.cidade : '' }} 
+            {{ cliente?.estado ? ', ' + cliente?.estado : '' }} 
+            {{ cliente?.cep ? ' - CEP: ' + cliente?.cep : '' }}
+          </p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Seção de Equipamentos -->
+  <mat-card class="mb-4">
+    <mat-card-header>
+      <mat-card-title>Equipamentos</mat-card-title>
+      <button mat-icon-button (click)="openAddEquipamentoDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="equipamentos" class="mat-elevation-z1 w-100">
+        <!-- Colunas da tabela -->
+        <ng-container matColumnDef="inmetro">
+          <th mat-header-cell *matHeaderCellDef>INMETRO</th>
+          <td mat-cell *matCellDef="let equipamento">{{ equipamento.inmetro }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="serie">
+          <th mat-header-cell *matHeaderCellDef>Série</th>
+          <td mat-cell *matCellDef="let equipamento">{{ equipamento.serie }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nomeEquipamento">
+          <th mat-header-cell *matHeaderCellDef>Equipamento</th>
+          <td mat-cell *matCellDef="let equipamento">{{ equipamento.nomeEquipamento }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="modelo">
+          <th mat-header-cell *matHeaderCellDef>Modelo</th>
+          <td mat-cell *matCellDef="let equipamento">{{ equipamento.modelo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dataAquisicao">
+          <th mat-header-cell *matHeaderCellDef>Data Aquisição</th>
+          <td mat-cell *matCellDef="let equipamento">
+            {{ equipamento.dataAquisicao ? (equipamento.dataAquisicao | date:'dd/MM/yyyy') : '-' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="garantia">
+          <th mat-header-cell *matHeaderCellDef>Garantia</th>
+          <td mat-cell *matCellDef="let equipamento">
+            <span *ngIf="equipamento.estaNaGarantia" class="badge bg-success">Dentro da Garantia</span>
+            <span *ngIf="!equipamento.estaNaGarantia && equipamento.dataAquisicao" class="badge bg-danger">Fora da Garantia</span>
+            <span *ngIf="!equipamento.dataAquisicao" class="badge bg-secondary">Sem Data</span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <div *ngIf="equipamentos.length === 0" class="text-center py-4">
+        Nenhum equipamento cadastrado.
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Seção de Visitas Técnicas -->
+  <mat-card class="mb-4">
+    <mat-card-header>
+      <mat-card-title>Visitas Técnicas</mat-card-title>
+      <button mat-icon-button (click)="openAddVisitaDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="visitas" class="mat-elevation-z1 w-100">
+        <!-- Colunas da tabela -->
+        <ng-container matColumnDef="data">
+          <th mat-header-cell *matHeaderCellDef>Data</th>
+          <td mat-cell *matCellDef="let visita">{{ visita.data | date:'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="tecnico">
+          <th mat-header-cell *matHeaderCellDef>Técnico</th>
+          <td mat-cell *matCellDef="let visita">{{ visita.tecnico }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="descricao">
+          <th mat-header-cell *matHeaderCellDef>Descrição</th>
+          <td mat-cell *matCellDef="let visita">{{ visita.descricao }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="observacoes">
+          <th mat-header-cell *matHeaderCellDef>Observações</th>
+          <td mat-cell *matCellDef="let visita">{{ visita.observacoes || '-' }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="visitasColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: visitasColumns;"></tr>
+      </table>
+
+      <div *ngIf="visitas.length === 0" class="text-center py-4">
+        Nenhuma visita técnica registrada.
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

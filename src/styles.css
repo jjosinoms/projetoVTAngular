@@ -1,1 +1,222 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importação do tema do Angular Material */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+/* Estilos globais */
+body {
+  background-color: #f4f7fb;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Cabeçalho */
+header {
+  background-color: #3f51b5;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+/* Container principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Cartões */
+.mat-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.mat-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+/* Tabelas */
+.mat-table {
+  width: 100%;
+  border-radius: 8px;
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mat-header-row,
+.mat-row {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.mat-header-cell {
+  background-color: #3f51b5;
+  color: white;
+  font-weight: bold;
+}
+
+.mat-row:hover {
+  background-color: #f5f5f5;
+}
+
+.mat-cell,
+.mat-header-cell {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Formulários */
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.mat-form-field .mat-label {
+  color: #3f51b5;
+}
+
+.mat-input-element {
+  font-size: 1rem;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+/* Botões */
+.mat-raised-button {
+  background-color: #3f51b5;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-right: 10px;
+}
+
+.mat-raised-button:hover {
+  background-color: #303f9f;
+}
+
+.mat-raised-button:focus {
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.5);
+}
+
+/* Modais */
+.mat-dialog-container {
+  border-radius: 8px;
+  padding: 0;
+}
+
+/* Grupos de campos */
+.field-group {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+
+  h6 {
+    color: #3f51b5;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .mat-card {
+    padding: 15px;
+  }
+  
+  .mat-table {
+    overflow-x: auto;
+    display: block;
+  }
+
+  .mat-raised-button {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+/* Estilo para o conteúdo do mat-card */
+.mat-mdc-card-content {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Estilo para o texto do cartão */
+.mat-mdc-card-content span {
+  font-weight: 500;
+  color: #3f51b5;  /* Cor padrão para textos importantes */
+  font-size: 1rem;
+  line-height: 1.5;
+  display: inline-block;
+  margin-right: 16px;
+}
+
+/* Estilo para o container dos botões */
+.mat-mdc-card-content div {
+  display: flex;
+  gap: 10px;  /* Adiciona espaçamento entre os botões */
+}
+
+/* Estilo para os botões com ícones */
+button.mat-icon-button {
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Efeito hover para os botões */
+button.mat-icon-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);  /* Efeito de fundo suave */
+  transform: scale(1.1);  /* Efeito de zoom */
+}
+
+/* Estilos para os botões primário e secundário */
+button.mat-icon-button.mat-primary {
+  color: #3f51b5;  /* Cor primária */
+}
+
+button.mat-icon-button.mat-primary:hover {
+  color: #303f9f;  /* Cor mais escura ao passar o mouse */
+}
+
+button.mat-icon-button.mat-accent {
+  color: #ff4081;  /* Cor de destaque (accent) */
+}
+
+button.mat-icon-button.mat-accent:hover {
+  color: #f50057;  /* Cor mais escura ao passar o mouse */
+}
+
+/* Estilo para os ícones */
+mat-icon {
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+button.mat-icon-button:hover mat-icon {
+  color: #ff4081;  /* Cor dos ícones ao passar o mouse */
+}
+
+

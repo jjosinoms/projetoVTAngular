@@ -1,0 +1,41 @@
+/* Logo */
+.navbar-logo {
+    width: 40px; /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+    object-fit: contain;
+  }
+  
+  /* Adiciona uma sombra suave ao navbar */
+  .navbar {
+    border-bottom: 2px solid #ddd;
+  }
+  
+  /* Nome da aplicação */
+  .navbar-brand span {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* Estilos para a navbar em dispositivos móveis */
+  .navbar-toggler-icon {
+    background-color: #333;
+  }
+  
+  /* Estilo para o item de navegação ativo */
+  .nav-link.active {
+    color: #007bff !important; /* Cor do link ativo */
+    font-weight: bold;
+  }
+  
+  /* Estilo dos links da navbar */
+  .navbar-nav .nav-item .nav-link {
+    font-size: 16px;
+    color: #555;
+    padding: 10px 15px;
+  }
+  
+  /* Muda a cor do link quando o mouse passa sobre ele */
+  .navbar-nav .nav-item .nav-link:hover {
+    color: #007bff;
+  }
+  
