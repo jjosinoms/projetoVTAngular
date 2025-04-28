@@ -1,0 +1,54 @@
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #495057;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #6c757d;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+.row {
+  justify-content: center;
+}
+
+.hover-card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.card-body:hover {
+  background-color: #e9ecef;
+}
+
+.card-title {
+  color: #007bff;
+}
+
+.card:hover .card-title {
+  color: #0056b3;
+}
+
+.card:hover .card-text {
+  color: #343a40;
+}

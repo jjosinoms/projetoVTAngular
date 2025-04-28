@@ -9,12 +9,18 @@ import { ClientesRoutingModule } from './clientes/clientes-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { ClientModule } from './clientes/clientes.module';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { RelatoriosComponent } from './relatorios/relatorios.component';
+import { NotificacoesComponent } from './notificacoes/notificacoes.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    DashboardComponent,
+    RelatoriosComponent,
+    NotificacoesComponent
   ],
   imports: [
     CommonModule,
