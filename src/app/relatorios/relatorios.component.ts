@@ -48,6 +48,7 @@ export class RelatoriosComponent implements OnInit {
     this.carregarSituacoes();
     this.carregarTopEquipamentos();
     this.carregarClientesNovosPorMes();  // Carregar os dados reais de novos clientes por mês
+    
   }
 
   carregarSituacoes(): void {
@@ -66,9 +67,11 @@ export class RelatoriosComponent implements OnInit {
 
   carregarClientesNovosPorMes(): void {
     this.relatorioService.getClientesNovosPorMes().subscribe(dados => {  // Buscar os dados reais de novos clientes
+      console.log("esses sao os clientes novos por mes:", dados)
       this.clientesNovosMensais = dados.map(d => ({
         mes: d.mes, 
         novosClientes: d.total  // A resposta pode conter a chave 'total' que representa a quantidade de novos clientes
+        
       }));
     });
   }
