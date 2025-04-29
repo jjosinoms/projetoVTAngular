@@ -33,12 +33,12 @@ export class DashboardComponent implements OnInit {
       route: '/relatorios',
       icon: '📊'
     },
-    {
-      title: 'Notificações',
-      description: 'Alertas sobre garantias, visitas e estoque.',
-      route: '/notificacoes',
-      icon: '🔔'
-    }
+    // {
+    //   title: 'Notificações',
+    //   description: 'Alertas sobre garantias, visitas e estoque.',
+    //   route: '/notificacoes',
+    //   icon: '🔔'
+    // }
   ];
 
   constructor(private router: Router, private clienteService: ClienteService) {}

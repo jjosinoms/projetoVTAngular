@@ -23,7 +23,6 @@ export class VisitaService {
       headers: { 'Content-Type': 'application/json' }
     });
   }
-  
 
   // Método para atualizar uma visita existente
   updateVisita(id: number, visita: Partial<Visita>): Observable<Visita> {
@@ -37,5 +36,17 @@ export class VisitaService {
   // Método para obter uma visita específica pelo ID
   getVisita(id: number): Observable<Visita> {
     return this.http.get<Visita>(`${this.apiUrl}/${id}`);
+  }
+
+  // NOVOS MÉTODOS PARA RELATÓRIOS
+
+  // Método para obter o resumo das situações das visitas
+  getSituacoesResumo(): Observable<{ [key: string]: number }> {
+    return this.http.get<{ [key: string]: number }>(`${this.apiUrl}/resumo-situacoes`);
+  }
+
+  // Método para obter a quantidade de atendimentos por equipamento
+  getEquipamentosMaisAtendidos(): Observable<{ equipamento: string, quantidade: number }[]> {
+    return this.http.get<{ equipamento: string, quantidade: number }[]>(`${this.apiUrl}/equipamentos-mais-atendidos`);
   }
 }

@@ -1,1 +1,46 @@
-<p>relatorios works!</p>
+<div class="container py-4">
+    <h2 class="mb-4">Relatórios</h2>
+  
+    <!-- Situação dos Reparos -->
+    <mat-card class="mb-4">
+      <mat-card-title>Situação dos Reparos</mat-card-title>
+      <mat-card-content>
+        <canvas id="situacaoChart"></canvas>
+      </mat-card-content>
+    </mat-card>
+  
+    <!-- Equipamentos Mais Atendidos -->
+    <mat-card class="mb-4">
+      <mat-card-title>Equipamentos Mais Atendidos</mat-card-title>
+      <mat-card-content>
+        <canvas id="equipamentoChart"></canvas>
+      </mat-card-content>
+    </mat-card>
+  
+    <!-- Tabela de Visitas por Mês -->
+    <mat-card class="mb-4">
+      <mat-card-title>Visitas por Mês</mat-card-title>
+      <mat-card-content>
+        <table mat-table [dataSource]="clientesNovosMensais " class="mat-elevation-z8" style="width: 100%;">
+          <ng-container matColumnDef="mes">
+            <th mat-header-cell *matHeaderCellDef> Mês </th>
+            <td mat-cell *matCellDef="let element"> {{ element.mes }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="visitas">
+            <th mat-header-cell *matHeaderCellDef> Visitas </th>
+            <td mat-cell *matCellDef="let element"> {{ element.visitas }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="novosClientes">
+            <th mat-header-cell *matHeaderCellDef> Novos Clientes </th>
+            <td mat-cell *matCellDef="let element"> {{ element.novosClientes }} </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="['mes', 'visitas', 'novosClientes']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['mes', 'visitas', 'novosClientes'];"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
