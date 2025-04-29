@@ -7,6 +7,7 @@ import { ClienteDetalhesComponent } from './clientes/cliente-detalhes/cliente-de
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RelatoriosComponent } from './relatorios/relatorios.component';
 import { NotificacoesComponent } from './notificacoes/notificacoes.component';
+import { DocumentacoesComponent } from './documentacoes/documentacoes.component';
 
 // Definindo as rotas
 const routes: Routes = [
@@ -37,7 +38,8 @@ const routes: Routes = [
   },
   {
     path: 'documentacoes',
-    loadChildren: () => import('./documentacoes/documentacoes.module').then(m => m.DocumentacoesModule) // Lazy loading do módulo de documentações
+    component: DocumentacoesComponent // Notificações
+
   },
   { 
     path: '**',

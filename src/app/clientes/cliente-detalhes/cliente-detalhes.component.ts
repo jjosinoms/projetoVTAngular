@@ -48,7 +48,8 @@ export class ClienteDetalhesComponent implements OnInit {
   carregarCliente(): void {
     this.clienteService.getCliente(this.clienteId).subscribe({
       next: (data: any) => {
-        const cliente = data.cliente;
+        const cliente = data;
+        //console.log('Cliente carregado:', data);
 
         // Converte os campos necessários para camelCase
         this.cliente = {

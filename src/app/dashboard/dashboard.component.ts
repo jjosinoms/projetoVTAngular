@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClienteService } from '../services/cliente.service'; // Atualize conforme necessário
+import { Cliente } from '../models/cliente.model'; // Certifique-se de que o caminho está correto
 
 @Component({
   selector: 'app-dashboard',
@@ -7,8 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css'],
   standalone: false
 })
-export class DashboardComponent {
-  constructor(private router: Router) {}
+export class DashboardComponent implements OnInit {
+  filterText = '';
+  clientes: Cliente[] = [];  // Tipando como Cliente[]
+  selectedCliente: Cliente | null = null;
 
   cards = [
     {
@@ -37,6 +41,38 @@ export class DashboardComponent {
     }
   ];
 
+  constructor(private router: Router, private clienteService: ClienteService) {}
+
+  ngOnInit() {
+    this.carregarClientes();  // Chama a função para carregar os clientes
+  }
+
+  // Função para carregar os clientes
+  carregarClientes(): void {
+    this.clienteService.getClientes().subscribe({
+      next: (data: Cliente[]) => {
+        this.clientes = data;  // Atualiza os dados corretamente
+      },
+      error: (err) => console.error('Erro ao carregar clientes:', err)
+    });
+  }
+
+  // Função para filtrar clientes
+  get filteredClientes() {
+    const filter = this.filterText.toLowerCase();
+    return this.clientes.filter(cliente =>
+      cliente.nome.toLowerCase().includes(filter) ||
+      cliente.cnpj.toLowerCase().includes(filter)
+    );
+  }
+
+  // Navegar para o cliente específico
+  openDetails(cliente: Cliente) {
+    this.selectedCliente = cliente;
+    this.router.navigate([`/clientes/${cliente.id}`]);  // Navega para a página de detalhes do cliente
+  }
+
+  // Função para navegação aos cards
   navigateTo(route: string) {
     this.router.navigate([route]);
   }
