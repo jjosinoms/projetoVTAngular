@@ -26,7 +26,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // Importação para o MatSpinner
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { MatTableModule } from '@angular/material/table';
-// import { NgChartsModule } from 'ng2-charts'; // ✅ Import correto para versão 8+
+import { NgChartsModule } from 'ng2-charts';
+
 
 
 @NgModule({
@@ -58,7 +59,7 @@ import { MatTableModule } from '@angular/material/table';
     FormsModule,
     MatProgressSpinnerModule,
     MatTableModule,
-    // NgChartsModule   
+    NgChartsModule   
 
   ],
   providers: [],
