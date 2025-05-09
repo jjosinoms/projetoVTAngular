@@ -54,3 +54,10 @@
   overflow-x: auto;
 }
 
+.documentation-wrapper {
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  color: #2d3748;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}

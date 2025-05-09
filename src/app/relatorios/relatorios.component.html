@@ -1,13 +1,10 @@
 <div class="relatorios-wrapper">
-
+  <app-menu />
   <!-- Gráfico de Barras: Situação dos Reparos -->
   <mat-card class="rel-card">
     <h2 class="rel-card-title">📊 Situação dos Reparos</h2>
     <div class="rel-card-content">
-      <canvas baseChart
-        [data]="situacaoChartData"
-        [type]="situacaoChartType"
-        [options]="chartOptions">
+      <canvas baseChart [data]="situacaoChartData" [type]="situacaoChartType" [options]="chartOptions">
       </canvas>
     </div>
   </mat-card>
@@ -16,10 +13,7 @@
   <mat-card class="rel-card">
     <h2 class="rel-card-title">🛠️ Equipamentos Mais Atendidos</h2>
     <div class="rel-card-content">
-      <canvas baseChart
-        [data]="equipamentoChartData"
-        [type]="equipamentoChartType"
-        [options]="chartOptions">
+      <canvas baseChart [data]="equipamentoChartData" [type]="equipamentoChartType" [options]="chartOptions">
       </canvas>
     </div>
   </mat-card>

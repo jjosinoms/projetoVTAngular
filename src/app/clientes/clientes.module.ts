@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -21,8 +21,9 @@ import { EquipamentoListComponent } from './equipamentos/equipamento-list/equipa
 import { EquipamentoFormComponent } from './equipamentos/equipamento-form/equipamento-form.component';
 import { VisitaListComponent } from './visitas/visita-list/visita-list.component';
 import { VisitaFormComponent } from './visitas/visita-form/visita-form.component';
-import { FormsModule } from '@angular/forms'; // Adicione esta linha
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+import { SharedModule } from '../shared/shared.module'; // <--- para usar MenuComponent
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @NgModule({
@@ -33,17 +34,17 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     EquipamentoListComponent,
     EquipamentoFormComponent,
     VisitaListComponent,
-    VisitaFormComponent,
-    
-    
-
+    VisitaFormComponent
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
+    SharedModule, // <--- permite uso de <app-menu> aqui
+
+    // Angular Material
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
@@ -53,9 +54,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     MatTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    FormsModule,
-
-    
+    MatDividerModule
   ]
 })
 export class ClientModule { }

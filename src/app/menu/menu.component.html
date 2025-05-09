@@ -1,0 +1,17 @@
+  <!-- Cabeçalho -->
+  <mat-toolbar color="primary" class="mat-elevation-z2 mb-4">
+    <span>Dashboard de Clientes</span>
+  </mat-toolbar>
+
+  <!-- Cards -->
+  <div class="cards-grid">
+    <div class="card-item" *ngFor="let card of cards" (click)="navigateTo(card.route)">
+      <div class="card-hover-effect"></div>
+      <div class="card-icon mat-elevation-z2">{{ card.icon }}</div>
+      <div class="card-info">
+        <div class="card-title">{{ card.title }}</div>
+        <div class="card-desc">{{ card.description }}</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+  </div>

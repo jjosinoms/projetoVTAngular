@@ -1,20 +1,9 @@
 <div class="dashboard-wrapper">
 
-  <!-- Cards -->
-  <div class="cards-grid">
-    <div class="card-item" *ngFor="let card of cards" (click)="navigateTo(card.route)">
-      <div class="card-icon">{{ card.icon }}</div>
-      <div class="card-info">
-        <div class="card-title">{{ card.title }}</div>
-        <div class="card-desc">{{ card.description }}</div>
-      </div>
-      <div class="card-hover-effect"></div>
-    </div>
-  </div>
-
+<app-menu/>
   <!-- Campo de busca -->
-  <div class="search-container">
-    <mat-form-field appearance="fill" class="search-bar">
+  <div class="search-section">
+    <mat-form-field appearance="outline" class="search-bar">
       <mat-label>Buscar cliente ou CNPJ</mat-label>
       <input matInput [(ngModel)]="filterText" placeholder="Digite o nome ou CNPJ">
       <button *ngIf="filterText" mat-icon-button matSuffix (click)="filterText=''">
@@ -25,16 +14,23 @@
       </button>
     </mat-form-field>
   </div>
-  
 
   <!-- Tabela -->
-  <div class="table-container mat-elevation-z8">
+  <div class="table-responsive">
     <table mat-table [dataSource]="filteredClientes" class="modern-table">
 
       <!-- Nome -->
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef>Cliente</th>
-        <td mat-cell *matCellDef="let el">{{ el.nome }}</td>
+        <td mat-cell *matCellDef="let el">
+          <div class="client-cell">
+            <div class="client-avatar">{{ el.nome.charAt(0) }}</div>
+            <div class="client-info">
+              <span class="client-name">{{ el.nome }}</span>
+              <span class="client-email">{{ el.email }}</span>
+            </div>
+          </div>
+        </td>
       </ng-container>
 
       <!-- CNPJ -->
@@ -46,14 +42,18 @@
       <!-- Última visita -->
       <ng-container matColumnDef="ultimaVisita">
         <th mat-header-cell *matHeaderCellDef>Última Visita</th>
-        <td mat-cell *matCellDef="let el">{{ getUltimaVisita(el) }}</td>
+        <td mat-cell *matCellDef="let el">
+          <span class="visit-date">{{ getUltimaVisita(el) }}</span>
+        </td>
       </ng-container>
 
       <!-- Expandir -->
       <ng-container matColumnDef="expand">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let el">
-          <mat-icon>chevron_right</mat-icon>
+          <button mat-icon-button (click)="toggleExpanded(el)">
+            <mat-icon>{{ el.expanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+          </button>
         </td>
       </ng-container>
 
@@ -63,12 +63,26 @@
           class="modern-row">
       </tr>
 
+      <!-- Conteúdo Expandido -->
       <tr *ngFor="let el of filteredClientes">
         <td colspan="4" *ngIf="el.expanded" class="expanded-content">
-          <!-- conteúdo expandido -->
-          <p class="m-0">Detalhes...</p>
+          <div class="expanded-details">
+            <div class="detail-item">
+              <span class="detail-label">Endereço</span>
+              <span class="detail-value">{{ el.endereco }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Telefone</span>
+              <span class="detail-value">{{ el.telefone }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Observações</span>
+              <span class="detail-value">{{ el.email }}</span>
+            </div>
+          </div>
         </td>
       </tr>
     </table>
   </div>
+
 </div>

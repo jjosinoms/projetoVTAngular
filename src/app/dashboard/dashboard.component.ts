@@ -49,6 +49,9 @@ export class DashboardComponent implements OnInit {
     this.carregarClientes();  // Chama a função para carregar os clientes
   }
 
+  openAddClient(){
+    
+  }
   // Função para carregar os clientes
   carregarClientes(): void {
     this.clienteService.getClientes().subscribe({
@@ -72,6 +75,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  editClient(){
+    console.log("ola")
+  }
   // Função para filtrar clientes
   get filteredClientes() {
     const filter = this.filterText.toLowerCase();
