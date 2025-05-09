@@ -1,5 +1,5 @@
 <div class="container my-4">
-  <h1 class="mb-4">Lista de Clientes</h1>
+  <h1 class="mb-4 text-center">Lista de Clientes</h1>
 
   <button mat-raised-button color="primary" class="mb-3" (click)="openAddClienteDialog()">
     <mat-icon>add</mat-icon> Adicionar Novo Cliente
@@ -16,17 +16,22 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 
-  <mat-card *ngFor="let cliente of clientesFiltrados" class="mb-2">
-    <mat-card-content class="d-flex justify-content-between align-items-center">
-      <span>{{ cliente.nome }} (CNPJ: {{ cliente.cnpj }})</span>
-      <div>
-        <button mat-icon-button color="primary" (click)="verDetalhes(cliente.id)">
-          <mat-icon>visibility</mat-icon>
-        </button>
-        <button mat-icon-button color="accent" (click)="openEditClienteDialog(cliente)">
-          <mat-icon>edit</mat-icon>
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <!-- Cartões de clientes -->
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let cliente of clientesFiltrados">
+      <mat-card class="mb-3 shadow-lg rounded">
+        <mat-card-content class="d-flex justify-content-between align-items-center">
+          <span class="text-truncate" [title]="cliente.nome + ' (CNPJ: ' + cliente.cnpj + ')'">{{ cliente.nome }} (CNPJ: {{ cliente.cnpj }})</span>
+          <div>
+            <button mat-icon-button color="primary" (click)="verDetalhes(cliente.id)" aria-label="Visualizar">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" (click)="openEditClienteDialog(cliente)" aria-label="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>

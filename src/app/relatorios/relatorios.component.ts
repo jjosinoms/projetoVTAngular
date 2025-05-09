@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartType, ChartOptions as ChartJSOptions } from 'chart.js';
+import { ChartType, ChartOptions, ChartData, Chart } from 'chart.js';
 import { forkJoin } from 'rxjs';
 import { RelatorioService } from '../services/relatorio.service';
+import { ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
+
+// Registro obrigatório para Chart.js v4+
+Chart.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 @Component({
   selector: 'app-relatorios',
@@ -11,31 +15,29 @@ import { RelatorioService } from '../services/relatorio.service';
 })
 export class RelatoriosComponent implements OnInit {
 
-  // Gráfico de pizza: Situações de Reparo
-  situacaoChartLabels: string[] = [];
-  situacaoChartData: number[] = [];
-  situacaoChartType: ChartType = 'pie';
-  situacaoChartColors = [{
-    backgroundColor: ['#FF0000', '#FF9900', '#00FF00']
-  }];
-  chartOptions: ChartJSOptions = {
+  // Gráfico de barras: Situações de Reparo
+  situacaoChartType: ChartType = 'bar';
+  situacaoChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: []
+  };
+
+  // Configurações do gráfico
+  chartOptions: ChartOptions = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
+        position: 'top'
       }
     }
   };
 
   // Gráfico de barras: Equipamentos mais atendidos
-  equipamentoChartLabels: string[] = [];
-  equipamentoChartData: number[] = [];
   equipamentoChartType: ChartType = 'bar';
-  equipamentoChartColors = [{
-    backgroundColor: '#4CAF50',
-    borderColor: '#388E3C',
-    borderWidth: 1
-  }];
+  equipamentoChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: []
+  };
 
   // Tabela: Visitas por mês + novos clientes
   clientesNovosMensais: { mes: string, visitas: number, novosClientes: number }[] = [];
@@ -47,18 +49,54 @@ export class RelatoriosComponent implements OnInit {
     this.carregarTopEquipamentos();
     this.carregarVisitasENovosClientes();
   }
-
   carregarSituacoes(): void {
     this.relatorioService.getSituacaoReparos().subscribe(resumo => {
-      this.situacaoChartLabels = Object.keys(resumo);
-      this.situacaoChartData = Object.values(resumo);
+      // Defina um mapa fixo de cores para cada tipo de situação
+      const corPorSituacao: { [key: string]: string } = {
+        'Urgente': '#FF0000',
+        'Em andamento': '#FF9900',
+        'Concluído Reparo': '#00FF00',
+        'Instalação Concluída': '#2196F3',
+        'Configuração Concluída': '#9C27B0'
+      };
+  
+      if (Array.isArray(resumo)) {
+        const labels = resumo.map(item => item.situacao);
+        const data = resumo.map(item => item.total);
+        const backgroundColor = labels.map(label => corPorSituacao[label] || '#CCCCCC'); // cor padrão se não mapeada
+  
+        this.situacaoChartData = {
+          labels,
+          datasets: [{
+            label: 'Situação dos Reparos',
+            data,
+            backgroundColor
+          }]
+        };
+      } else {
+        console.error('A resposta da API não é um array', resumo);
+      }
     });
   }
+  
+  
 
   carregarTopEquipamentos(): void {
     this.relatorioService.getEquipamentosMaisAtendidos().subscribe(dados => {
-      this.equipamentoChartLabels = dados.map(d => d.equipamento);
-      this.equipamentoChartData = dados.map(d => d.total);
+      const labels = dados.map(d => d.equipamento);
+      const data = dados.map(d => d.total);
+
+      // Atualiza o gráfico de barras com os dados de equipamentos
+      this.equipamentoChartData = {
+        labels,
+        datasets: [{
+          label: 'Atendimentos',
+          data,
+          backgroundColor: '#4CAF50',
+          borderColor: '#388E3C',
+          borderWidth: 1
+        }]
+      };
     });
   }
 
@@ -81,7 +119,6 @@ export class RelatoriosComponent implements OnInit {
         }
       });
 
-      // Ordenar por data
       this.clientesNovosMensais = Object.values(mapa).sort((a, b) => {
         const [mesA, anoA] = a.mes.split('/').map(Number);
         const [mesB, anoB] = b.mes.split('/').map(Number);
@@ -89,5 +126,4 @@ export class RelatoriosComponent implements OnInit {
       });
     });
   }
-
 }

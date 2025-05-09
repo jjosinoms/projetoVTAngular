@@ -1,66 +1,80 @@
-<div class="documentation-container">
-  <div class="header">
-    <h1 class="mat-headline-4">Documentações Técnicas</h1>
+<div class="documentation-wrapper">
 
-    <div class="search-filter">
-      <mat-form-field appearance="outline">
+  <!-- Cabeçalho e Filtros -->
+  <div class="doc-header">
+    <div class="header-content">
+      <div class="title-section">
+        <mat-icon class="title-icon">article</mat-icon>
+        <h1>Documentações Técnicas</h1>
+      </div>
+      <p class="subtitle">Acesse e consulte os manuais técnicos disponíveis</p>
+    </div>
+
+    <div class="doc-filters">
+      <mat-form-field appearance="fill" class="filter-input">
         <mat-label>Buscar Documentação</mat-label>
-        <input matInput placeholder="Digite para buscar" [(ngModel)]="searchTerm" (input)="applyFilter()">
+        <input matInput [(ngModel)]="searchTerm" placeholder="Digite para buscar" (input)="applyFilter()">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <!-- <mat-form-field appearance="fill" class="filter-select">
         <mat-label>Filtrar por Modelo</mat-label>
         <mat-select [(value)]="selectedModel" (selectionChange)="applyFilter()">
           <mat-option value="all">Todos os Modelos</mat-option>
-          <mat-option *ngFor="let model of availableModels" [value]="model">
-            {{ model }}
-          </mat-option>
+          <mat-option *ngFor="let model of availableModels" [value]="model">{{ model }}</mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
     </div>
   </div>
 
-  <div class="documentation-grid">
+  <!-- Grid de Documentações -->
+  <div class="doc-grid">
     <mat-card *ngFor="let doc of filteredDocs" class="doc-card">
-      <mat-card-header>
-        <mat-icon mat-card-avatar>description</mat-icon>
-        <mat-card-title>{{ doc.title }}</mat-card-title>
-        <mat-card-subtitle>{{ doc.model }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
+      <div class="card-background"></div>
+      <div class="doc-card-header">
+        <div class="doc-icon">
+          <mat-icon>description</mat-icon>
+        </div>
+        <div class="doc-meta">
+          <div class="doc-title">{{ doc.title }}</div>
+          <div class="doc-subtitle">{{ doc.model }}</div>
+        </div>
+      </div>
+
+      <div class="doc-card-body">
         <p>{{ doc.description }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button color="primary" (click)="openDialog(doc)">
+      </div>
+
+      <div class="doc-card-actions">
+        <button mat-raised-button color="primary" (click)="openDialog(doc)" class="action-button">
           <mat-icon>visibility</mat-icon> Ver Detalhes
         </button>
-      </mat-card-actions>
+      </div>
     </mat-card>
   </div>
 
-  <!-- Modal de Detalhe -->
+  <!-- Modal -->
   <ng-template #documentacaoDetalheDialog>
     <div class="dialog-content">
-      <h2>{{ selectedDoc?.title }}</h2>
-      <h3>{{ selectedDoc?.model }}</h3>
-      <p>{{ selectedDoc?.description }}</p>
-  
-      <div class="pdf-container">
-        <iframe 
-        *ngIf="safePdfUrl" 
-        [src]="safePdfUrl" 
-        width="100%" 
-        height="500px" 
-        style="border: none;">
-      </iframe>
+      <div class="dialog-header">
+        <h2>{{ selectedDoc?.title }}</h2>
+        <div class="doc-tags">
+          <span class="doc-tag">{{ selectedDoc?.model }}</span>
+        </div>
+      </div>
+
+      <p class="doc-description">{{ selectedDoc?.description }}</p>
+
+      <div class="pdf-frame-wrapper">
+        <iframe *ngIf="safePdfUrl" [src]="safePdfUrl" width="100%" height="500px" frameborder="0">
+        </iframe>
       </div>
     </div>
-    
-    <mat-dialog-actions>
-      <button mat-button mat-dialog-close>Fechar</button>
-      <a mat-button [href]="pdfUrl" target="_blank" color="primary">
-        Abrir em nova guia
+
+    <mat-dialog-actions align="end" class="dialog-actions">
+      <button mat-stroked-button mat-dialog-close class="action-button">Fechar</button>
+      <a mat-raised-button color="primary" [href]="pdfUrl" target="_blank" class="action-button">
+        <mat-icon>open_in_new</mat-icon> Abrir em nova guia
       </a>
     </mat-dialog-actions>
   </ng-template>

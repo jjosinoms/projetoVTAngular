@@ -58,28 +58,28 @@ export class DocumentacoesComponent {
     },
         {
       id: 4,
-      title: 'Documentação de Configuração Balança e Software UPX Thunder com Torre',
+      title: 'Configuração UPX Thunder com Torre',
       model: 'UPX Thunder com Torre',
       description: 'Guia técnico de instalação e configuração do modelo UPX Thunder com Torre.',
       pdfPath: 'assets/docs/thundertorre.pdf'
     },
     {
       id: 5,
-      title: 'Documentação de Configuração UPX Wind DR3 com Thunder Box, Impressora e Balança._',
+      title: 'Configuração UPX Wind DR3 com Thunder Box, Impressora e Balança._',
       model: 'UPX Thunder Wind DR3',
       description: 'Guia técnico de instalação e configuração do modelo UPX Thunder Wind DR3.',
       pdfPath: 'assets/docs/thunderboxDR3.pdf'
     },
     {
       id: 6,
-      title: 'Documentação de Configuração PRIX 3 Plus',
+      title: 'Configuração Prix 3 Plus',
       model: 'Prix 3 Plus',
       description: 'Guia técnico de instalação e configuração do modelo Prix 3 Plus.',
       pdfPath: 'assets/docs/prix3.pdf'
     },
     {
       id: 7,
-      title: 'Documentação de Configuração Balança Checkout 8217 Toledo',
+      title: 'Configuração Checkout 8217 Toledo',
       model: 'Toledo Checkout 8217',
       description: 'Guia técnico de instalação e configuração do modelo Toledo Checkout 8217.',
       pdfPath: 'assets/docs/checkout8217.pdf'

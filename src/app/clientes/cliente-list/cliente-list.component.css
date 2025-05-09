@@ -1,0 +1,90 @@
+/* Ajustes de layout e responsividade */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px; /* Adicionando um padding geral */
+  }
+  
+  h1, h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Cartões de cliente */
+  .mat-card {
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    width: 100%; /* Garantir que os cartões não ultrapassem a largura */
+  }
+  
+  .mat-card-content {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .mat-form-field {
+    width: 100%; /* Garantir que o campo de input ocupe 100% da largura disponível */
+  }
+  
+  button.mat-raised-button {
+    width: auto; /* Ajuste para botões ficarem no tamanho certo */
+  }
+  
+  /* Ajustes de responsividade para telas menores */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 15px; /* Adicionando padding para telas menores */
+    }
+  
+    .mat-card-content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    /* Evitar que o conteúdo dos cartões ultrapasse a tela */
+    .mat-card {
+      width: 100%;
+      box-sizing: border-box; /* Adiciona a borda para evitar overflow */
+    }
+  
+    .mat-form-field {
+      margin-bottom: 10px; /* Espaço entre os campos */
+    }
+  
+    /* Ajustes para os inputs nos campos para não ultrapassarem */
+    input, .mat-input-element {
+      max-width: 100%; /* Limita o input ao tamanho máximo disponível */
+      box-sizing: border-box; /* Para garantir que o padding não ultrapasse o limite */
+    }
+  
+    .row {
+      margin-top: 15px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .text-truncate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 200px;
+    }
+  
+    .row {
+      margin-top: 0;
+    }
+  
+    .mat-card-content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    /* Evitar que a largura dos campos de entrada ultrapasse o tamanho da tela */
+    .mat-form-field {
+      width: 100%;
+    }
+  }
+  

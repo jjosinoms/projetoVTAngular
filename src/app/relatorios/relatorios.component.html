@@ -1,43 +1,34 @@
-<div class="relatorios-container" style="padding: 1rem; display: grid; gap: 2rem;">
+<div class="relatorios-wrapper">
 
-  <!-- Gráfico de Pizza: Situação dos Reparos -->
-  <mat-card>
-    <mat-card-title>Situação dos Reparos</mat-card-title>
-    <mat-card-content>
+  <!-- Gráfico de Barras: Situação dos Reparos -->
+  <mat-card class="rel-card">
+    <h2 class="rel-card-title">📊 Situação dos Reparos</h2>
+    <div class="rel-card-content">
       <canvas baseChart
-        [data]="{ labels: situacaoChartLabels, datasets: [{ data: situacaoChartData, backgroundColor: situacaoChartColors[0].backgroundColor }] }"
+        [data]="situacaoChartData"
         [type]="situacaoChartType"
         [options]="chartOptions">
       </canvas>
-    </mat-card-content>
+    </div>
   </mat-card>
 
   <!-- Gráfico de Barras: Equipamentos Mais Atendidos -->
-  <mat-card>
-    <mat-card-title>Equipamentos Mais Atendidos</mat-card-title>
-    <mat-card-content>
+  <mat-card class="rel-card">
+    <h2 class="rel-card-title">🛠️ Equipamentos Mais Atendidos</h2>
+    <div class="rel-card-content">
       <canvas baseChart
-        [data]="{
-          labels: equipamentoChartLabels,
-          datasets: [{
-            label: 'Atendimentos',
-            data: equipamentoChartData,
-            backgroundColor: equipamentoChartColors[0].backgroundColor,
-            borderColor: equipamentoChartColors[0].borderColor,
-            borderWidth: equipamentoChartColors[0].borderWidth
-          }]
-        }"
+        [data]="equipamentoChartData"
         [type]="equipamentoChartType"
         [options]="chartOptions">
       </canvas>
-    </mat-card-content>
+    </div>
   </mat-card>
 
-  <!-- Tabela: Visitas por Mês + Novos Clientes -->
-  <mat-card>
-    <mat-card-title>Visitas e Novos Clientes por Mês</mat-card-title>
-    <mat-card-content>
-      <table mat-table [dataSource]="clientesNovosMensais" class="mat-elevation-z8" style="width: 100%;">
+  <!-- Tabela: Visitas e Novos Clientes por Mês -->
+  <mat-card class="rel-card">
+    <h2 class="rel-card-title">📅 Visitas e Novos Clientes por Mês</h2>
+    <div class="rel-card-content table-responsive">
+      <table mat-table [dataSource]="clientesNovosMensais" class="rel-table">
 
         <!-- Mês -->
         <ng-container matColumnDef="mes">
@@ -60,7 +51,7 @@
         <tr mat-header-row *matHeaderRowDef="['mes', 'visitas', 'novosClientes']"></tr>
         <tr mat-row *matRowDef="let row; columns: ['mes', 'visitas', 'novosClientes'];"></tr>
       </table>
-    </mat-card-content>
+    </div>
   </mat-card>
 
 </div>

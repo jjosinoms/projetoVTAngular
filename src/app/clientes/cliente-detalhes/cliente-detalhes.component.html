@@ -1,133 +1,198 @@
-<div class="container py-5">
+<div class="client-details-container">
   <!-- Informações do Cliente -->
-  <mat-card class="mb-4">
-    <mat-card-header>
-      <mat-card-title>Informações do Cliente</mat-card-title>
-      <button mat-icon-button (click)="openEditClienteDialog()">
-        <mat-icon>edit</mat-icon>
-      </button>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="row">
-        <div class="col-md-6">
-          <p><strong>Nome:</strong> {{ cliente?.nome }}</p>
-          <p><strong>Razão Social:</strong> {{ cliente?.razao_social }}</p>
-          <p><strong>CNPJ:</strong> {{ cliente?.cnpj }}</p>
-        </div>
-        <div class="col-md-6">
-          <p><strong>Telefone:</strong> {{ cliente?.telefone || 'Não informado' }}</p>
-          <p><strong>Telefone 2:</strong> {{ cliente?.telefone2 || 'Não informado' }}</p>
-          <p><strong>Email:</strong> {{ cliente?.email || 'Não informado' }}</p>
-        </div>
+  <mat-card class="client-card">
+    <mat-card-header class="card-header">
+      <div class="header-content">
+        <mat-card-title class="card-title">
+          <mat-icon class="title-icon">person</mat-icon>
+          Informações do Cliente
+        </mat-card-title>
+        <button mat-icon-button class="edit-button" (click)="openEditClienteDialog()" matTooltip="Editar cliente">
+          <mat-icon>edit</mat-icon>
+        </button>
       </div>
-      <div class="row mt-3">
-        <div class="col-12">
-          <p><strong>Endereço:</strong> 
-            {{ cliente?.endereco || '' }} 
-            {{ cliente?.bairro ? ', ' + cliente?.bairro : '' }} 
-            {{ cliente?.cidade ? ' - ' + cliente?.cidade : '' }} 
-            {{ cliente?.estado ? ', ' + cliente?.estado : '' }} 
-            {{ cliente?.cep ? ' - CEP: ' + cliente?.cep : '' }}
-          </p>
+    </mat-card-header>
+    
+    <mat-divider></mat-divider>
+    
+    <mat-card-content class="card-content">
+      <div class="info-grid">
+        <div class="info-section">
+          <div class="info-item">
+            <span class="info-label">Nome:</span>
+            <span class="info-value">{{ cliente?.nome }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Razão Social:</span>
+            <span class="info-value">{{ cliente?.razao_social }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">CNPJ:</span>
+            <span class="info-value">{{ cliente?.cnpj }}</span>
+          </div>
+        </div>
+        
+        <div class="info-section">
+          <div class="info-item">
+            <span class="info-label">Telefone:</span>
+            <span class="info-value">{{ cliente?.telefone || 'Não informado' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Telefone 2:</span>
+            <span class="info-value">{{ cliente?.telefone2 || 'Não informado' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Email:</span>
+            <span class="info-value">{{ cliente?.email || 'Não informado' }}</span>
+          </div>
+        </div>
+        
+        <div class="full-width-section">
+          <div class="info-item">
+            <span class="info-label">Endereço:</span>
+            <span class="info-value">
+              {{ cliente?.endereco || '' }} 
+              {{ cliente?.bairro ? ', ' + cliente?.bairro : '' }} 
+              {{ cliente?.cidade ? ' - ' + cliente?.cidade : '' }} 
+              {{ cliente?.estado ? ', ' + cliente?.estado : '' }} 
+              {{ cliente?.cep ? ' - CEP: ' + cliente?.cep : '' }}
+            </span>
+          </div>
         </div>
       </div>
     </mat-card-content>
   </mat-card>
 
   <!-- Seção de Equipamentos -->
-  <mat-card class="mb-4">
-    <mat-card-header>
-      <mat-card-title>Equipamentos</mat-card-title>
-      <button mat-icon-button (click)="openAddEquipamentoDialog()">
-        <mat-icon>add</mat-icon>
-      </button>
+  <mat-card class="section-card">
+    <mat-card-header class="card-header">
+      <div class="header-content">
+        <mat-card-title class="card-title">
+          <mat-icon class="title-icon">devices</mat-icon>
+          Equipamentos
+        </mat-card-title>
+        <button mat-raised-button color="primary" (click)="openAddEquipamentoDialog()" class="add-button">
+          <mat-icon>add</mat-icon>
+          Adicionar
+        </button>
+      </div>
     </mat-card-header>
+    
+    <mat-divider></mat-divider>
+    
     <mat-card-content>
-      <table mat-table [dataSource]="equipamentos" class="mat-elevation-z1 w-100">
-        <!-- Colunas da tabela -->
-        <ng-container matColumnDef="inmetro">
-          <th mat-header-cell *matHeaderCellDef>INMETRO</th>
-          <td mat-cell *matCellDef="let equipamento">{{ equipamento.inmetro }}</td>
-        </ng-container>
+      <div class="table-container">
+        <table mat-table [dataSource]="equipamentos" class="modern-table">
+          <!-- Definir colunas da tabela -->
+          <ng-container matColumnDef="inmetro">
+            <th mat-header-cell *matHeaderCellDef>INMETRO</th>
+            <td mat-cell *matCellDef="let equipamento">{{ equipamento.inmetro }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="serie">
-          <th mat-header-cell *matHeaderCellDef>Série</th>
-          <td mat-cell *matCellDef="let equipamento">{{ equipamento.serie }}</td>
-        </ng-container>
+          <ng-container matColumnDef="serie">
+            <th mat-header-cell *matHeaderCellDef>Série</th>
+            <td mat-cell *matCellDef="let equipamento">{{ equipamento.serie }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="nomeEquipamento">
-          <th mat-header-cell *matHeaderCellDef>Equipamento</th>
-          <td mat-cell *matCellDef="let equipamento">{{ equipamento.nomeEquipamento }}</td>
-        </ng-container>
+          <ng-container matColumnDef="nomeEquipamento">
+            <th mat-header-cell *matHeaderCellDef>Equipamento</th>
+            <td mat-cell *matCellDef="let equipamento">{{ equipamento.nomeEquipamento }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="modelo">
-          <th mat-header-cell *matHeaderCellDef>Modelo</th>
-          <td mat-cell *matCellDef="let equipamento">{{ equipamento.modelo }}</td>
-        </ng-container>
+          <ng-container matColumnDef="modelo">
+            <th mat-header-cell *matHeaderCellDef>Modelo</th>
+            <td mat-cell *matCellDef="let equipamento">{{ equipamento.modelo }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="dataAquisicao">
-          <th mat-header-cell *matHeaderCellDef>Data Aquisição</th>
-          <td mat-cell *matCellDef="let equipamento">
-            {{ equipamento.dataAquisicao ? (equipamento.dataAquisicao | date:'dd/MM/yyyy') : '-' }}
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="dataAquisicao">
+            <th mat-header-cell *matHeaderCellDef>Data Aquisição</th>
+            <td mat-cell *matCellDef="let equipamento">
+              {{ equipamento.dataAquisicao ? (equipamento.dataAquisicao | date:'dd/MM/yyyy') : '-' }}
+            </td>
+          </ng-container>
 
-        <ng-container matColumnDef="garantia">
-          <th mat-header-cell *matHeaderCellDef>Garantia</th>
-          <td mat-cell *matCellDef="let equipamento">
-            <span *ngIf="equipamento.estaNaGarantia" class="badge bg-success">Dentro da Garantia</span>
-            <span *ngIf="!equipamento.estaNaGarantia && equipamento.dataAquisicao" class="badge bg-danger">Fora da Garantia</span>
-            <span *ngIf="!equipamento.dataAquisicao" class="badge bg-secondary">Sem Data</span>
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="garantia">
+            <th mat-header-cell *matHeaderCellDef>Garantia</th>
+            <td mat-cell *matCellDef="let equipamento">
+              <span *ngIf="equipamento.estaNaGarantia" class="status-badge success">Dentro da Garantia</span>
+              <span *ngIf="!equipamento.estaNaGarantia && equipamento.dataAquisicao" class="status-badge danger">Fora da Garantia</span>
+              <span *ngIf="!equipamento.dataAquisicao" class="status-badge neutral">Sem Data</span>
+            </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+              class="table-row" 
+              [class.row-hover]="true"></tr>
+        </table>
 
-      <div *ngIf="equipamentos.length === 0" class="text-center py-4">
-        Nenhum equipamento cadastrado.
+        <div *ngIf="equipamentos.length === 0" class="empty-state">
+          <mat-icon>devices_other</mat-icon>
+          <p>Nenhum equipamento cadastrado</p>
+          <button mat-stroked-button color="primary" (click)="openAddEquipamentoDialog()">
+            <mat-icon>add</mat-icon>
+            Adicionar Equipamento
+          </button>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>
 
   <!-- Seção de Visitas Técnicas -->
-  <mat-card class="mb-4">
-    <mat-card-header>
-      <mat-card-title>Visitas Técnicas</mat-card-title>
-      <button mat-icon-button (click)="openAddVisitaDialog()">
-        <mat-icon>add</mat-icon>
-      </button>
+  <mat-card class="section-card">
+    <mat-card-header class="card-header">
+      <div class="header-content">
+        <mat-card-title class="card-title">
+          <mat-icon class="title-icon">engineering</mat-icon>
+          Visitas Técnicas
+        </mat-card-title>
+        <button mat-raised-button color="primary" (click)="openAddVisitaDialog()" class="add-button">
+          <mat-icon>add</mat-icon>
+          Adicionar
+        </button>
+      </div>
     </mat-card-header>
+    
+    <mat-divider></mat-divider>
+    
     <mat-card-content>
-      <table mat-table [dataSource]="visitas" class="mat-elevation-z1 w-100">
-        <!-- Colunas da tabela -->
-        <ng-container matColumnDef="data">
-          <th mat-header-cell *matHeaderCellDef>Data</th>
-          <td mat-cell *matCellDef="let visita">{{ visita.data | date:'dd/MM/yyyy' }}</td>
-        </ng-container>
+      <div class="table-container">
+        <table mat-table [dataSource]="visitas" class="modern-table">
+          <!-- Definir colunas da tabela -->
+          <ng-container matColumnDef="data">
+            <th mat-header-cell *matHeaderCellDef>Data</th>
+            <td mat-cell *matCellDef="let visita">{{ visita.data | date:'dd/MM/yyyy' }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="tecnico">
-          <th mat-header-cell *matHeaderCellDef>Técnico</th>
-          <td mat-cell *matCellDef="let visita">{{ visita.tecnico }}</td>
-        </ng-container>
+          <ng-container matColumnDef="tecnico">
+            <th mat-header-cell *matHeaderCellDef>Técnico</th>
+            <td mat-cell *matCellDef="let visita">{{ visita.tecnico }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="descricao">
-          <th mat-header-cell *matHeaderCellDef>Descrição</th>
-          <td mat-cell *matCellDef="let visita">{{ visita.descricao }}</td>
-        </ng-container>
+          <ng-container matColumnDef="descricao">
+            <th mat-header-cell *matHeaderCellDef>Descrição</th>
+            <td mat-cell *matCellDef="let visita">{{ visita.descricao }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="observacoes">
-          <th mat-header-cell *matHeaderCellDef>Observações</th>
-          <td mat-cell *matCellDef="let visita">{{ visita.observacoes || '-' }}</td>
-        </ng-container>
+          <ng-container matColumnDef="observacoes">
+            <th mat-header-cell *matHeaderCellDef>Observações</th>
+            <td mat-cell *matCellDef="let visita">{{ visita.observacoes || '-' }}</td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="visitasColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: visitasColumns;"></tr>
-      </table>
+          <tr mat-header-row *matHeaderRowDef="visitasColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: visitasColumns;" 
+              class="table-row" 
+              [class.row-hover]="true"></tr>
+        </table>
 
-      <div *ngIf="visitas.length === 0" class="text-center py-4">
-        Nenhuma visita técnica registrada.
+        <div *ngIf="visitas.length === 0" class="empty-state">
+          <mat-icon>assignment</mat-icon>
+          <p>Nenhuma visita técnica registrada</p>
+          <button mat-stroked-button color="primary" (click)="openAddVisitaDialog()">
+            <mat-icon>add</mat-icon>
+            Registrar Visita
+          </button>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>

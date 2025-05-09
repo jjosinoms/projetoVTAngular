@@ -27,6 +27,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; /
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { MatTableModule } from '@angular/material/table';
 import { NgChartsModule } from 'ng2-charts';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 
 
@@ -59,7 +61,8 @@ import { NgChartsModule } from 'ng2-charts';
     FormsModule,
     MatProgressSpinnerModule,
     MatTableModule,
-    NgChartsModule   
+    NgChartsModule,
+    MatPaginatorModule
 
   ],
   providers: [],

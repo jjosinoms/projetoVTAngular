@@ -8,7 +8,10 @@ import { Cliente } from '../../models/cliente.model';
   selector: 'app-cliente-form',
   templateUrl: './cliente-form.component.html',
   styleUrls: ['./cliente-form.component.css'],
-  standalone: false
+  standalone: false,
+  host: {
+    'class': 'cliente-form-container'
+  }
 })
 export class ClienteFormComponent implements OnInit {
   clienteForm: FormGroup;
