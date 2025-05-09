@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClienteService } from '../services/cliente.service'; // Atualize conforme necessário
 import { Cliente } from '../models/cliente.model'; // Certifique-se de que o caminho está correto
+import { VisitaService } from '../services/visita.service';
+import { Visita } from '../models/visita.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +15,8 @@ export class DashboardComponent implements OnInit {
   filterText = '';
   clientes: Cliente[] = [];  // Tipando como Cliente[]
   selectedCliente: Cliente | null = null;
+  expanded: boolean = false;  // Inicializa como false por padrão
+
 
   cards = [
     {
@@ -33,15 +37,13 @@ export class DashboardComponent implements OnInit {
       route: '/relatorios',
       icon: '📊'
     },
-    // {
-    //   title: 'Notificações',
-    //   description: 'Alertas sobre garantias, visitas e estoque.',
-    //   route: '/notificacoes',
-    //   icon: '🔔'
-    // }
   ];
 
-  constructor(private router: Router, private clienteService: ClienteService) {}
+  constructor(
+    private router: Router,
+    private clienteService: ClienteService,
+    private visitaService: VisitaService
+  ) { }
 
   ngOnInit() {
     this.carregarClientes();  // Chama a função para carregar os clientes
@@ -51,9 +53,22 @@ export class DashboardComponent implements OnInit {
   carregarClientes(): void {
     this.clienteService.getClientes().subscribe({
       next: (data: Cliente[]) => {
-        this.clientes = data;  // Atualiza os dados corretamente
+        this.clientes = data;
+        this.clientes.forEach(cliente => this.carregarVisitas(cliente));
+        // console.log("Lista de clientes:", this.clientes);
       },
       error: (err) => console.error('Erro ao carregar clientes:', err)
+    });
+  }
+
+  // Função para carregar as visitas de um cliente
+  carregarVisitas(cliente: Cliente): void {
+    this.visitaService.getVisitasPorCliente(cliente.id).subscribe({
+      next: (data: Visita[]) => {
+        cliente.visitas = data;  // Adiciona as visitas diretamente no cliente
+        // console.log(`Lista de visitas para o cliente ${cliente.id}:`, cliente.visitas);
+      },
+      error: (err) => console.error(`Erro ao carregar visitas para o cliente ${cliente.id}:`, err)
     });
   }
 
@@ -76,4 +91,28 @@ export class DashboardComponent implements OnInit {
   navigateTo(route: string) {
     this.router.navigate([route]);
   }
+
+  isExpandedRow(index: number, row: any): boolean {
+    return !!row.expanded;
+  }
+  
+  
+  toggleExpanded(element: any): void {
+    element.expanded = !element.expanded;
+  }
+
+  getUltimaVisita(cliente: Cliente): string {
+    if (!cliente.visitas || cliente.visitas.length === 0) {
+      return 'Sem visitas';
+    }
+  
+    // Ordena as visitas pela data (mais recente primeiro)
+    const ultima = cliente.visitas
+      .slice() // evita alterar o array original
+      .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
+  
+    return new Date(ultima.data).toLocaleDateString('pt-BR');
+  }
+  
+  
 }

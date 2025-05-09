@@ -1,6 +1,6 @@
 <div class="container py-4">
   <!-- Cards do Dashboard -->
-  <div class="row g-4">
+  <div class="row g-4 mb-4">
     <div class="col-md-6 col-lg-4" *ngFor="let card of cards" (click)="navigateTo(card.route)" style="cursor: pointer;">
       <div class="card h-100 shadow-lg border-0 rounded-lg hover-card">
         <div class="card-body text-center">
@@ -12,31 +12,56 @@
   </div>
 
   <!-- Campo de busca -->
-  <div class="container py-4">
-    <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 16px;">
-      <mat-label>Buscar cliente ou CNPJ</mat-label>
-      <input matInput [(ngModel)]="filterText">
-    </mat-form-field>
+  <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 16px;">
+    <mat-label>Buscar cliente ou CNPJ</mat-label>
+    <input matInput [(ngModel)]="filterText">
+  </mat-form-field>
 
-    <!-- Tabela de clientes -->
-    <table mat-table [dataSource]="filteredClientes" class="mat-elevation-z8" style="width: 100%;">
-      <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef> Cliente </th>
-        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
-      </ng-container>
+  <!-- Tabela de clientes -->
+  <table mat-table [dataSource]="filteredClientes" class="mat-elevation-z8" style="width: 100%;">
+    
+    <!-- Coluna Cliente -->
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef> Cliente </th>
+      <td mat-cell *matCellDef="let element"  > {{ element.nome }}  </td>
+    </ng-container>
 
-      <ng-container matColumnDef="cnpj">
-        <th mat-header-cell *matHeaderCellDef> CNPJ </th>
-        <td mat-cell *matCellDef="let element"> {{element.cnpj}} </td>
-      </ng-container>
+    <!-- Coluna CNPJ -->
+    <ng-container matColumnDef="cnpj">
+      <th mat-header-cell *matHeaderCellDef> CNPJ </th>
+      <td mat-cell *matCellDef="let element"> {{ element.cnpj }} </td>
+    </ng-container>
 
-      <ng-container matColumnDef="dataVisita">
-        <th mat-header-cell *matHeaderCellDef> Data da Visita </th>
-        <td mat-cell *matCellDef="let element"> {{element.dataVisita | date:'dd/MM/yyyy'}} </td>
-      </ng-container>
+    <!-- Coluna Última Visita -->
+    <ng-container matColumnDef="ultimaVisita">
+      <th mat-header-cell *matHeaderCellDef> Última Visita </th>
+      <td mat-cell *matCellDef="let element">
+        {{ getUltimaVisita(element) }}
+      </td>
+    </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="['nome', 'cnpj', 'dataVisita']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['nome', 'cnpj', 'dataVisita'];" (click)="openDetails(row)" style="cursor: pointer;"></tr>
-    </table>
-  </div>
+    <!-- Coluna Botão Expandir -->
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button (click)="toggleExpanded(element)" color="primary">
+          {{ element.expanded ? 'Esconder Visitas' : 'Ver Visitas' }}
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Cabeçalho -->
+    <tr mat-header-row *matHeaderRowDef="['nome', 'cnpj', 'ultimaVisita', 'expand']"></tr>
+
+    <!-- Linha principal -->
+    <!-- <tr mat-row *matRowDef="let element; columns: ['nome', 'cnpj', 'ultimaVisita', 'expand'];"></tr> -->
+    <tr mat-row *matRowDef="let row; columns: ['nome', 'cnpj', 'ultimaVisita'];" (click)="openDetails(row)" style="cursor: pointer;"></tr>
+
+    <!-- Linha expandida -->
+    <tr *ngFor="let element of filteredClientes">
+      <td colspan="4" *ngIf="element.expanded">
+
+      </td>
+    </tr>
+  </table>
 </div>

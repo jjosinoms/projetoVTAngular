@@ -1,3 +1,5 @@
+import { Visita } from "./visita.model";
+
 export interface Cliente {
     id: number;
     nome: string;
@@ -11,4 +13,7 @@ export interface Cliente {
     cidade?: string;
     bairro?: string;
     endereco?: string;
+    visitas?: Visita[];
+    expanded?: boolean;         // Usada para exibir ou ocultar linha expandida
+
   }
